@@ -1,5 +1,5 @@
 FROM python:3.10.7
-MAINTAINER grey thomas
+MAINTAINER Grey Thomas
 WORKDIR /home/gjt01/Desktop/EA\ Assessment/Docker\ app/
 COPY src/requirements.txt requirements.txt
 RUN pip3 install --no-cache-dir -r requirements.txt
