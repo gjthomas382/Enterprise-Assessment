@@ -15,7 +15,7 @@ pipeline {
             JENKINS_CRUMB = '`curl "$JENKINS_URL/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\\":\\",//crumb)"`'
           }
           steps {
-            sh 'curl -X POST -H $JENKINS_CRUMB -F "jenkinsfile=<Jenkinsfile" "$JENKINS_URL/EA\\ Pipeline/validate"'
+            sh 'curl -X POST -H $JENKINS_CRUMB -F "jenkinsfile=<Jenkinsfile" "$JENKINS_URL/job/EA%20Pipeline/validate"'
           }
         }
 
