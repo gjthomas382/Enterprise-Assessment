@@ -19,20 +19,53 @@ pipeline {
     }
 
     stage('Build Image') {
-      steps {
-        sh 'docker build -t gjthomas382/portedcode:initial .'
+      parallel {
+        stage('Build Image') {
+          steps {
+            sh 'docker build -t gjthomas382/portedcode:initial .'
+          }
+        }
+
+        stage('') {
+          steps {
+            sh 'curl --user gjthomas382:Newagecult382! -X POST -F "jenkinsfile=<Jenkinsfile" http://localhost:8080/job/EA%20Pipeline/'
+          }
+        }
+
       }
     }
 
     stage('Log In') {
-      steps {
-        sh 'sudo docker login -u gjthomas382 -p Newagecult382!'
+      parallel {
+        stage('Log In') {
+          steps {
+            sh 'sudo docker login -u gjthomas382 -p Newagecult382!'
+          }
+        }
+
+        stage('') {
+          steps {
+            sh 'curl --user gjthomas382:Newagecult382! -X POST -F "jenkinsfile=<Jenkinsfile" http://localhost:8080/job/EA%20Pipeline/'
+          }
+        }
+
       }
     }
 
     stage('Push Code') {
-      steps {
-        sh 'sudo docker push gjthomas382/portedcode:initial'
+      parallel {
+        stage('Push Code') {
+          steps {
+            sh 'sudo docker push gjthomas382/portedcode:initial'
+          }
+        }
+
+        stage('') {
+          steps {
+            sh 'curl --user gjthomas382:Newagecult382! -X POST -F "jenkinsfile=<Jenkinsfile" http://localhost:8080/job/EA%20Pipeline/'
+          }
+        }
+
       }
     }
 
