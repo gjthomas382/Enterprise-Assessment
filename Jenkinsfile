@@ -1,5 +1,11 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'ubuntu'
+      args '-u root:root'
+    }
+
+  }
   stages {
     stage('Git Code') {
       steps {
