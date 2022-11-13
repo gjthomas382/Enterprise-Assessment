@@ -1,15 +1,20 @@
 pipeline {
-  agent {
-    docker {
-      image 'ubuntu'
-      args '-u root:root'
-    }
-
-  }
+  agent any
   stages {
     stage('Git Code') {
-      steps {
-        git(url: 'https://github.com/gjthomas382/Enterprise-Assessment', branch: 'main')
+      parallel {
+        stage('Git Code') {
+          steps {
+            git(url: 'https://github.com/gjthomas382/Enterprise-Assessment', branch: 'main')
+          }
+        }
+
+        stage('Give Jenkins root') {
+          steps {
+            sh 'sh "sudo chown root:jenkins /run/docker.sock"'
+          }
+        }
+
       }
     }
 
