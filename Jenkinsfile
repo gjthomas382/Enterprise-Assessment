@@ -7,9 +7,9 @@ pipeline {
       }
     }
 
-    stage('Build Code') {
+    stage('Build Dockerfile') {
       steps {
-        sh 'sudo docker build -f Dockerfile .'
+        sh 'docker build Dockerfile .'
       }
     }
 
