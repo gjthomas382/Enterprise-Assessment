@@ -19,13 +19,13 @@ pipeline {
         DOCKER_PASSWORD = 'Newagecult382!'
       }
       steps {
-        sh 'docker login -u $DOCKER_USER -p %DOCKER_PASSWORD'
+        sh 'sudo docker login -u $DOCKER_USER -p %DOCKER_PASSWORD'
       }
     }
 
     stage('Push Code') {
       steps {
-        sh 'docker push gjthomas382/portedcode:initial'
+        sh 'sudo docker push gjthomas382/portedcode:initial'
       }
     }
 
