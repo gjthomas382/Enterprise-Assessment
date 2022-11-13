@@ -11,7 +11,7 @@ pipeline {
 
         stage('Lint') {
           steps {
-            sh 'curl --user gjthomas382:Newagecult382! -X POST -F "jenkinsfile=<Jenkinsfile" http://localhost:8080/job/EA%20Pipeline/validate'
+            sh 'curl --user gjthomas382:Newagecult382! -X POST -F "jenkinsfile=<Jenkinsfile" http://localhost:8080/job/EA%20Pipeline/'
           }
         }
 
