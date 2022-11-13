@@ -2,25 +2,26 @@ pipeline {
   agent any
   stages {
     stage('Git Code') {
-      steps {
-        git(url: 'https://github.com/gjthomas382/Enterprise-Assessment', branch: 'main')
-      }
-    }
-
-    stage('Build Image') {
       parallel {
-        stage('Build Image') {
+        stage('Git Code') {
           steps {
-            sh 'docker build -t gjthomas382/portedcode:initial .'
+            git(url: 'https://github.com/gjthomas382/Enterprise-Assessment', branch: 'main')
           }
         }
 
         stage('') {
           steps {
-            osfBuilderSuiteStandaloneSonarLinter(reportPath: 'https://github.com/gjthomas382/Enterprise-Assessment')
+            sh '''JENKINS_CRUMB=`curl "$JENKINS_URL/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\\":\\",//crumb)"`
+curl -X POST -H $JENKINS_CRUMB -F "jenkinsfile=<Jenkinsfile" $JENKINS_URL/pipeline-model-converter/validate'''
           }
         }
 
+      }
+    }
+
+    stage('Build Image') {
+      steps {
+        sh 'docker build -t gjthomas382/portedcode:initial .'
       }
     }
 
