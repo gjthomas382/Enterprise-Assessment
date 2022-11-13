@@ -1,17 +1,36 @@
 pipeline {
-  agent any
-  stages {
-    stage('Get code') {
-      steps {
-        git(url: 'https://github.com/gjthomas382/Enterprise-Assessment.git', branch: 'main')
-      }
+    environment {
+        registry = "gjthomas382/portedcode"
+        registryCredential = 'dockerhub_id'
+        dockerImage = ''
     }
-
-    stage('Build Dockerfile') {
-      steps {
-        sh 'docker build .'
-      }
+    agent any
+    stages {
+        stage('Git Code') {
+            steps {
+                git(url: 'https://github.com/gjthomas382/Enterprise-Assessment', branch: 'main')
+            }
+        }
+        stage('Building our image') {
+            steps{
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }
+            }
+        }
+        stage('Deploy our image') {
+            steps{
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+        stage('Cleaning up') {
+            steps{
+                sh "docker rmi $registry:$BUILD_NUMBER"
+            }
+        }
     }
-
-  }
 }
