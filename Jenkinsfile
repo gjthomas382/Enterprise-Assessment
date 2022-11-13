@@ -8,8 +8,19 @@ pipeline {
     }
 
     stage('Build Image') {
-      steps {
-        sh 'docker build -t gjthomas382/portedcode:initial .'
+      parallel {
+        stage('Build Image') {
+          steps {
+            sh 'docker build -t gjthomas382/portedcode:initial .'
+          }
+        }
+
+        stage('') {
+          steps {
+            osfBuilderSuiteStandaloneSonarLinter(reportPath: 'https://github.com/gjthomas382/Enterprise-Assessment')
+          }
+        }
+
       }
     }
 
