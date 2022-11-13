@@ -10,12 +10,8 @@ pipeline {
         }
 
         stage('Lint') {
-          environment {
-            JENKINS_URL = 'http://localhost:8080'
-            JENKINS_CRUMB = '`curl "http://localhost:8080/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\\":\\",//crumb)"`'
-          }
           steps {
-            sh 'curl -X POST -H $JENKINS_CRUMB -F "jenkinsfile=<Jenkinsfile" "$JENKINS_URL/job/EA%20Pipeline/validate"'
+            sh 'curl --user gjthomas382:Newagecult382! -X POST -F "jenkinsfile=<Jenkinsfile" http://localhost:8080/job/EA%20Pipeline/validate'
           }
         }
 
