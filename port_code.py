@@ -5,7 +5,7 @@ import urllib.request
 from bs4 import BeautifulSoup as soup
 
 
-print("Well Hello There!")
+print("It is Thursday!! My dudes!")
 
 #use the structured time function to grab the time
 Local_time = time.strftime("%m/%d/%Y %I:%M:%S %p")
